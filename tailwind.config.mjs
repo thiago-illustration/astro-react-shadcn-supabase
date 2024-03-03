@@ -12,6 +12,7 @@ export default {
       },
     },
     extend: {
+      // Fluid styles generated from https://utopia.fyi/
       fontSize: {
         "fluid--2": "clamp(0.7035rem, 0.8083rem + -0.1353vi, 0.7813rem)",
         "fluid--1": "clamp(0.9375rem, 0.9374rem + 0.0004vi, 0.9377rem)",
