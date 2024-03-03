@@ -3,3 +3,8 @@ const user = Astro.locals.user;
 ---
 
 <h1>Hello, {user.email}</h1>
+
+<p>We are happy to see you here</p>
+<form action="/api/auth/signout">
+  <button type="submit">Sign out</button>
+</form>

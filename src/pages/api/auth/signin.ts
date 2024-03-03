@@ -1,6 +1,8 @@
 import type { APIRoute } from "astro";
-import { supabase } from "@lib/supabase";
 import type { Provider } from "@supabase/supabase-js";
+
+import { supabase } from "@lib/supabase";
+import { signinSchema } from "@modules/auth";
 
 export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const formData = await request.formData();
@@ -8,6 +10,13 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
   const password = formData.get("password")?.toString();
   const provider = formData.get("provider")?.toString();
 
+  const validatePayload = signinSchema.safeParse({ email, password });
+
+  if (!validatePayload.success) {
+    return new Response("Email and password are required", { status: 400 });
+  }
+
+  const payload = validatePayload.data;
   const validProviders = ["google", "github", "discord"];
 
   if (provider && validProviders.includes(provider)) {
@@ -25,13 +34,9 @@ export const POST: APIRoute = async ({ request, cookies, redirect }) => {
     return redirect(data.url);
   }
 
-  if (!email || !password) {
-    return new Response("Email and password are required", { status: 400 });
-  }
-
   const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
+    email: payload.email,
+    password: payload.password,
   });
 
   if (error) {
