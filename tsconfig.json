@@ -5,9 +5,9 @@
     "jsxImportSource": "react",
     "baseUrl": ".",
     "paths": {
-      "@lib*": ["./src/lib/*"],
-      "@modules*": ["./src/modules/*"],
-      "@ui*": ["./src/ui/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@ui/*": ["./src/ui/*"]
     }
   }
 }
